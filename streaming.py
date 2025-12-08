@@ -10,7 +10,7 @@ from voxcpm import VoxCPM
 SAMPLE_RATE = 16000
 
 def main():
-    # 1) 載入模型（跟你原本的一樣）
+    # 1) 載入模型
     t_start = time.perf_counter()
     print("Loading VoxCPM model ...")
     model = VoxCPM.from_pretrained("openbmb/VoxCPM-0.5B")
@@ -46,11 +46,11 @@ def main():
             model.generate_streaming(
                 text=text,
                 cfg_value=2.0,
-                inference_timesteps=30,
+                inference_timesteps=10,
                 prompt_wav_path=prompt_wav_path,
                 prompt_text=prompt_text,
-                normalize=True,
-                denoise=True,
+                normalize=True,  # 文字標準化 e.g. 壹一1都固定為"一"
+                # denoise=True,  # 參考音檔降噪
                 retry_badcase=True,
                 retry_badcase_max_times=3,
                 retry_badcase_ratio_threshold=6.0,
